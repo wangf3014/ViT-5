@@ -77,36 +77,49 @@ pip install flash-attn==2.6.3 --no-build-isolation
 
 ---
 
-# Training
-
 # Training & Fine-tuning
 
 ```bash
 # ImageNet Pretraining (8 GPUs example)
+# ViT-5-Small
 torchrun --nproc_per_node 8 main.py \
-  --model vit5_small --input-size 224 \
-  --data-path YOUR_IMAGENET_PATH \
-  --output_dir DIR_TO_SAVE_LOG_AND_CKPT \
-  --batch 256 --accum_iter 1 --lr 4e-3 --weight-decay 0.05 \
-  --epochs 800 --opt fusedlamb --unscale-lr \
-  --mixup .8 --cutmix 1.0 --color-jitter 0.3 \
-  --drop-path 0.05 --reprob 0.0 --smoothing 0.0 \
-  --ThreeAugment --repeated-aug --bce-loss \
-  --warmup-epochs 5 --eval-crop-ratio 1.0 \
-  --dist-eval --disable_wandb
+  --model vit5_small --input-size 224 --data-path YOUR_IMAGENET_PATH --output_dir DIR_TO_SAVE_LOG_AND_CKPT \
+  --batch 256 --accum_iter 1 --lr 4e-3 --weight-decay 0.05 --epochs 800 --opt fusedlamb --unscale-lr \
+  --mixup .8 --cutmix 1.0 --color-jitter 0.3 --drop-path 0.05 --reprob 0.0 --smoothing 0.0 --ThreeAugment \
+  --repeated-aug --bce-loss --warmup-epochs 5 --eval-crop-ratio 1.0 --dist-eval --disable_wandb
+
+# ViT-5-Base
+torchrun --nproc_per_node 8 main.py \
+  --model vit5_base --input-size 192 --data-path YOUR_IMAGENET_PATH --output_dir DIR_TO_SAVE_LOG_AND_CKPT \
+  --batch 256 --accum_iter 1 --lr 3e-3 --weight-decay 0.05 --epochs 800 --opt fusedlamb --unscale-lr \
+  --mixup .8 --cutmix 1.0 --color-jitter 0.3 --drop-path 0.2 --reprob 0.0 --smoothing 0.0 --ThreeAugment \
+  --repeated-aug --bce-loss --warmup-epochs 5 --eval-crop-ratio 1.0 --dist-eval --disable_wandb
+
+# ViT-5-Large
+torchrun --nproc_per_node 8 main.py \
+  --model vit5_large --input-size 192 --data-path YOUR_IMAGENET_PATH --output_dir DIR_TO_SAVE_LOG_AND_CKPT \
+  --batch 256 --accum_iter 1 --lr 3e-3 --weight-decay 0.05 --epochs 400 --opt fusedlamb --unscale-lr \
+  --mixup .8 --cutmix 1.0 --color-jitter 0.3 --drop-path 0.35 --reprob 0.0 --smoothing 0.0 --ThreeAugment \
+  --repeated-aug --bce-loss --warmup-epochs 5 --eval-crop-ratio 1.0 --dist-eval --disable_wandb
 
 # Fine-tuning from Pretrained Checkpoint
+# ViT-5-Small
 torchrun --nproc_per_node 8 main.py \
-  --model vit5_small \
-  --finetune PATH_TO_YOUR_CKPT \
-  --data-path YOUR_DATASET_PATH \
-  --output_dir DIR_TO_SAVE_LOG_AND_CKPT \
-  --batch 64 --lr 1e-5 --weight-decay 0.1 \
-  --epochs 20 --unscale-lr \
-  --aa rand-m9-mstd0.5-inc1 --drop-path 0.05 --reprob 0.0 --smoothing 0.1 \
-  --no-repeated-aug \
-  --dist-eval --load_ema \
-  --eval-crop-ratio 1.0 --disable_wandb
+  --model vit5_small --finetune PATH_TO_YOUR_CKPT --data-path YOUR_DATASET_PATH --output_dir DIR_TO_SAVE_LOG_AND_CKPT \
+  --batch 64 --lr 1e-5 --weight-decay 0.1 --epochs 20 --unscale-lr --aa rand-m9-mstd0.5-inc1 --drop-path 0.05 \
+  --reprob 0.0 --smoothing 0.1 --no-repeated-aug --dist-eval --load_ema --eval-crop-ratio 1.0 --disable_wandb
+
+# ViT-5-Base
+torchrun --nproc_per_node 8 main.py \
+  --model vit5_base --finetune PATH_TO_YOUR_CKPT --data-path YOUR_DATASET_PATH --output_dir DIR_TO_SAVE_LOG_AND_CKPT \
+  --batch 64 --lr 1e-5 --weight-decay 0.1 --epochs 20 --unscale-lr --aa rand-m9-mstd0.5-inc1 --drop-path 0.25 \
+  --reprob 0.0 --smoothing 0.1 --no-repeated-aug --dist-eval --load_ema --eval-crop-ratio 1.0 --disable_wandb
+
+# ViT-5-Large
+torchrun --nproc_per_node 8 main.py \
+  --model vit5_large --finetune PATH_TO_YOUR_CKPT --data-path YOUR_DATASET_PATH --output_dir DIR_TO_SAVE_LOG_AND_CKPT \
+  --batch 64 --lr 1e-5 --weight-decay 0.1 --epochs 20 --unscale-lr --aa rand-m9-mstd0.5-inc1 --drop-path 0.5 \
+  --reprob 0.0 --smoothing 0.1 --no-repeated-aug --dist-eval --load_ema --eval-crop-ratio 1.0 --disable_wandb
 ```
 
 
