@@ -58,33 +58,33 @@ ViT-5 also improves performance when used as a backbone in diffusion-style gener
 
 # Installation
 
-## 1. PyTorch (CUDA 12.4)
+# Installation
 
-```
+```bash
+# ------------------------------------------------------------
+# 1. Install PyTorch (CUDA 12.4)
+# ------------------------------------------------------------
 pip install torch==2.4.1 torchvision --index-url https://download.pytorch.org/whl/cu124
-```
 
-## 2. Core Dependencies
-
-```
+# ------------------------------------------------------------
+# 2. Install core dependencies
+# ------------------------------------------------------------
 pip install timm==0.4.12 numpy==1.26.4 wandb einops
-```
 
-## 3. NVIDIA Apex (for fused optimizers)
-
-```
+# ------------------------------------------------------------
+# 3. Install NVIDIA Apex (required for fused optimizers)
+# ------------------------------------------------------------
 git clone https://github.com/NVIDIA/apex
 cd apex
 APEX_CPP_EXT=1 APEX_CUDA_EXT=1 pip install -v --no-build-isolation .
-```
+cd ..
 
-## 4. Flash Attention (Optional)
-
-```
+# ------------------------------------------------------------
+# 4. (Optional) Install Flash Attention for faster training
+# ------------------------------------------------------------
 pip install flash-attn==2.6.3 --no-build-isolation
 ```
 
-Flash Attention accelerates training but is not required.
 
 ---
 
