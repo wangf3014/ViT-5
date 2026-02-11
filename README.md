@@ -30,26 +30,11 @@ It serves as:
   <img src="assets/fig4.png" width="48%" />
 </p>
 
-ViT-5 keeps the standard Transformer encoder:
-
-Patch Embedding → [Attention → FFN] × L → Head
-
-but modernizes:
-
-- Normalization  
-- Positional encoding  
-- Optimization recipe  
-- Stabilization techniques  
-- Training strategy  
-
-Full details are described in the paper.
-
----
-
 ## Generative Modeling Impact
 
 <p align="center">
-  <img src="assets/fig6.png" width="75%" />
+  <img src="assets/fig6.png" width="95%" />
+  <img src="assets/fig7.png" width="95%" />
 </p>
 
 ViT-5 also improves performance when used as a backbone in diffusion-style generative frameworks.
