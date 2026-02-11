@@ -58,30 +58,19 @@ ViT-5 also improves performance when used as a backbone in diffusion-style gener
 
 # Installation
 
-# Installation
-
 ```bash
-# ------------------------------------------------------------
-# 1. Install PyTorch (CUDA 12.4)
-# ------------------------------------------------------------
+# Install PyTorch (CUDA 12.4)
 pip install torch==2.4.1 torchvision --index-url https://download.pytorch.org/whl/cu124
 
-# ------------------------------------------------------------
-# 2. Install core dependencies
-# ------------------------------------------------------------
+# Install core dependencies
 pip install timm==0.4.12 numpy==1.26.4 wandb einops
 
-# ------------------------------------------------------------
-# 3. Install NVIDIA Apex (required for fused optimizers)
-# ------------------------------------------------------------
+# Install NVIDIA Apex (required for fused optimizers)
 git clone https://github.com/NVIDIA/apex
 cd apex
 APEX_CPP_EXT=1 APEX_CUDA_EXT=1 pip install -v --no-build-isolation .
-cd ..
 
-# ------------------------------------------------------------
-# 4. (Optional) Install Flash Attention for faster training
-# ------------------------------------------------------------
+# (Optional) Install Flash Attention for faster training
 pip install flash-attn==2.6.3 --no-build-isolation
 ```
 
@@ -90,41 +79,36 @@ pip install flash-attn==2.6.3 --no-build-isolation
 
 # Training
 
-## ImageNet Pretraining (8 GPUs Example)
+# Training & Fine-tuning
 
-### ViT-5-Small
-
-```
+```bash
+# ImageNet Pretraining (8 GPUs example)
 torchrun --nproc_per_node 8 main.py \
---model vit5_small --input-size 224 \
---data-path YOUR_IMAGENET_PATH \
---output_dir DIR_TO_SAVE_LOG_AND_CKPT \
---batch 256 --accum_iter 1 --lr 4e-3 --weight-decay 0.05 \
---dist-eval --warmup-epochs 5 --eval-crop-ratio 1.0 --reprob 0.0 --smoothing 0.0 \
---epochs 800 --opt fusedlamb \
---mixup .8 --cutmix 1.0 --unscale-lr --disable_wandb \
---repeated-aug --bce-loss --color-jitter 0.3 --ThreeAugment --drop-path 0.05
-```
+  --model vit5_small --input-size 224 \
+  --data-path YOUR_IMAGENET_PATH \
+  --output_dir DIR_TO_SAVE_LOG_AND_CKPT \
+  --batch 256 --accum_iter 1 --lr 4e-3 --weight-decay 0.05 \
+  --epochs 800 --opt fusedlamb --unscale-lr \
+  --mixup .8 --cutmix 1.0 --color-jitter 0.3 \
+  --drop-path 0.05 --reprob 0.0 --smoothing 0.0 \
+  --ThreeAugment --repeated-aug --bce-loss \
+  --warmup-epochs 5 --eval-crop-ratio 1.0 \
+  --dist-eval --disable_wandb
 
----
-
-# Fine-tuning
-
-Example fine-tuning from a pretrained checkpoint:
-
-```
+# Fine-tuning from Pretrained Checkpoint
 torchrun --nproc_per_node 8 main.py \
---model vit5_small \
---finetune PATH_TO_YOUR_CKPT \
---data-path YOUR_DATASET_PATH \
---output_dir DIR_TO_SAVE_LOG_AND_CKPT \
---batch 64 --lr 1e-5 --weight-decay 0.1 --unscale-lr \
---reprob 0.0 --smoothing 0.1 --no-repeated-aug \
---aa rand-m9-mstd0.5-inc1 --epochs 20 --drop-path 0.05 \
---dist-eval --load_ema --disable_wandb --eval-crop-ratio 1.0
+  --model vit5_small \
+  --finetune PATH_TO_YOUR_CKPT \
+  --data-path YOUR_DATASET_PATH \
+  --output_dir DIR_TO_SAVE_LOG_AND_CKPT \
+  --batch 64 --lr 1e-5 --weight-decay 0.1 \
+  --epochs 20 --unscale-lr \
+  --aa rand-m9-mstd0.5-inc1 --drop-path 0.05 --reprob 0.0 --smoothing 0.1 \
+  --no-repeated-aug \
+  --dist-eval --load_ema \
+  --eval-crop-ratio 1.0 --disable_wandb
 ```
 
----
 
 # Results
 
