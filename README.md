@@ -56,6 +56,18 @@ ViT-5 also improves performance when used as a backbone in diffusion-style gener
 
 ---
 
+# Results & Checkpoints
+
+| Model | Input Resolution | Params | Top-1 (ImageNet-1K) | HF Link |
+|-------|------------------|--------|---------------------|---------|
+| ViT-5-Small | 224 | 22M  | 82.2% | [Download](https://huggingface.co/FengWang3211/ViT-5/blob/main/vit5_small_patch16_224.pth) |
+| ViT-5-Base  | 224 | 87M  | 84.2% | [Download](https://huggingface.co/FengWang3211/ViT-5/blob/main/vit5_base_patch16_224.pth) |
+| ViT-5-Base  | 384 | 87M  | 85.4% | [Download](https://huggingface.co/FengWang3211/ViT-5/blob/main/vit5_base_patch16_384.pth) |
+| ViT-5-Large | 224 | 304M | 84.9% | [Download](https://huggingface.co/FengWang3211/ViT-5/blob/main/vit5_large_patch16_224.pth) |
+| ViT-5-Large | 384 | 304M | 86.0% | Available soon |
+
+---
+
 # Installation
 
 ```bash
@@ -73,7 +85,6 @@ APEX_CPP_EXT=1 APEX_CUDA_EXT=1 pip install -v --no-build-isolation .
 # (Optional) Install Flash Attention for faster training
 pip install flash-attn==2.6.3 --no-build-isolation
 ```
-
 
 ---
 
@@ -122,26 +133,8 @@ torchrun --nproc_per_node 8 main.py \
   --reprob 0.0 --smoothing 0.1 --no-repeated-aug --dist-eval --load_ema --eval-crop-ratio 1.0 --disable_wandb
 ```
 
-
-# Results
-
-On ImageNet-1K:
-
-- ViT-5-Base achieves **84.2% top-1 accuracy**
-
-ViT-5 consistently outperforms earlier ViT baselines under comparable compute settings.
-
-See the paper for full ablation and scaling results.
-
 ---
 
-# Checkpoints
-
-Pretrained weights are available at:
-
-👉 https://huggingface.co/FengWang3211/ViT-5
-
----
 
 # Citation
 
