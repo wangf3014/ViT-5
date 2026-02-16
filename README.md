@@ -45,11 +45,11 @@ ViT-5 also improves performance when used as a backbone in diffusion-style gener
 
 | Model | Input Resolution | Params | Top-1 (ImageNet-1K) | HF Link |
 |-------|------------------|--------|---------------------|---------|
-| ViT-5-Small | 224 | 22M  | 82.2% | [Download](https://huggingface.co/FengWang3211/ViT-5/blob/main/vit5_small_patch16_224.pth) |
-| ViT-5-Base  | 224 | 87M  | 84.2% | [Download](https://huggingface.co/FengWang3211/ViT-5/blob/main/vit5_base_patch16_224.pth) |
-| ViT-5-Base  | 384 | 87M  | 85.4% | [Download](https://huggingface.co/FengWang3211/ViT-5/blob/main/vit5_base_patch16_384.pth) |
-| ViT-5-Large | 224 | 304M | 84.9% | [Download](https://huggingface.co/FengWang3211/ViT-5/blob/main/vit5_large_patch16_224.pth) |
-| ViT-5-Large | 384 | 304M | 86.0% | Available soon |
+| ViT-5-Small | 224 | 22M  | 82.2% | [Download](https://huggingface.co/FengWang3211/ViT-5/resolve/main/vit5_small_patch16_224.pth) |
+| ViT-5-Base  | 224 | 87M  | 84.2% | [Download](https://huggingface.co/FengWang3211/ViT-5/resolve/main/vit5_base_patch16_224.pth) |
+| ViT-5-Base  | 384 | 87M  | 85.4% | [Download](https://huggingface.co/FengWang3211/ViT-5/resolve/main/vit5_base_patch16_384.pth) |
+| ViT-5-Large | 224 | 304M | 84.9% | [Download](https://huggingface.co/FengWang3211/ViT-5/resolve/main/vit5_large_patch16_224.pth) |
+| ViT-5-Large | 384 | 304M | 86.0% | [Download](https://huggingface.co/FengWang3211/ViT-5/resolve/main/vit5_large_patch16_384.pth) |
 
 ---
 
